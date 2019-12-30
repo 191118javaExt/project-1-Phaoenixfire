@@ -1,0 +1,54 @@
+2019-12-24 09:11:14 WARN  EmployeeDAOImpl:103 - something went wrong
+org.postgresql.util.PSQLException: The column name ers_first_name was not found in this ResultSet.
+	at org.postgresql.jdbc.PgResultSet.findColumn(PgResultSet.java:2607)
+	at org.postgresql.jdbc.PgResultSet.getString(PgResultSet.java:2480)
+	at com.revature.repositories.EmployeeDAOImpl.logIn(EmployeeDAOImpl.java:90)
+	at com.revature.services.EmployeeServices.logIn(EmployeeServices.java:27)
+	at com.revature.Driver.main(Driver.java:14)
+2019-12-24 09:12:04 WARN  EmployeeDAOImpl:103 - something went wrong
+org.postgresql.util.PSQLException: The column name ers_first_name was not found in this ResultSet.
+	at org.postgresql.jdbc.PgResultSet.findColumn(PgResultSet.java:2607)
+	at org.postgresql.jdbc.PgResultSet.getString(PgResultSet.java:2480)
+	at com.revature.repositories.EmployeeDAOImpl.logIn(EmployeeDAOImpl.java:90)
+	at com.revature.services.EmployeeServices.logIn(EmployeeServices.java:27)
+	at com.revature.Driver.main(Driver.java:14)
+2019-12-24 10:36:43 WARN  EmployeeDAOImpl:56 - Something went wrong
+org.postgresql.util.PSQLException: ERROR: column "reimb_status" does not exist
+  Hint: Perhaps you meant to reference the column "ers_reimbursement.reimb_status_id".
+  Position: 61
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2505)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2241)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:310)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:447)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:368)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:158)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:108)
+	at com.revature.repositories.EmployeeDAOImpl.viewPendingRequests(EmployeeDAOImpl.java:40)
+	at com.revature.services.EmployeeServices.viewPendingRequests(EmployeeServices.java:21)
+	at com.revature.Driver.main(Driver.java:21)
+2019-12-24 10:38:07 WARN  EmployeeDAOImpl:56 - Something went wrong
+org.postgresql.util.PSQLException: ResultSet not positioned properly, perhaps you need to call next.
+	at org.postgresql.jdbc.PgResultSet.checkResultSet(PgResultSet.java:2786)
+	at org.postgresql.jdbc.PgResultSet.getInt(PgResultSet.java:2046)
+	at org.postgresql.jdbc.PgResultSet.getInt(PgResultSet.java:2498)
+	at com.revature.repositories.EmployeeDAOImpl.viewPendingRequests(EmployeeDAOImpl.java:41)
+	at com.revature.services.EmployeeServices.viewPendingRequests(EmployeeServices.java:21)
+	at com.revature.Driver.main(Driver.java:21)
+2019-12-24 10:42:23 WARN  EmployeeDAOImpl:60 - Something went wrong
+org.postgresql.util.PSQLException: Bad value for type long : \x4e554c4c
+	at org.postgresql.jdbc.PgResultSet.toLong(PgResultSet.java:2887)
+	at org.postgresql.jdbc.PgResultSet.getLong(PgResultSet.java:2094)
+	at org.postgresql.jdbc.PgResultSet.getBlob(PgResultSet.java:416)
+	at org.postgresql.jdbc.PgResultSet.getBlob(PgResultSet.java:403)
+	at com.revature.repositories.EmployeeDAOImpl.viewPendingRequests(EmployeeDAOImpl.java:47)
+	at com.revature.services.EmployeeServices.viewPendingRequests(EmployeeServices.java:21)
+	at com.revature.Driver.main(Driver.java:21)
+2019-12-24 10:43:28 WARN  EmployeeDAOImpl:60 - Something went wrong
+org.postgresql.util.PSQLException: Bad value for type long : \x
+	at org.postgresql.jdbc.PgResultSet.toLong(PgResultSet.java:2887)
+	at org.postgresql.jdbc.PgResultSet.getLong(PgResultSet.java:2094)
+	at org.postgresql.jdbc.PgResultSet.getBlob(PgResultSet.java:416)
+	at org.postgresql.jdbc.PgResultSet.getBlob(PgResultSet.java:403)
+	at com.revature.repositories.EmployeeDAOImpl.viewPendingRequests(EmployeeDAOImpl.java:47)
+	at com.revature.services.EmployeeServices.viewPendingRequests(EmployeeServices.java:21)
+	at com.revature.Driver.main(Driver.java:21)
