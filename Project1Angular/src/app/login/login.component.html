@@ -1,0 +1,27 @@
+<div id="backgroundImage">
+
+
+<div id="formWrapper" class="col-sm-3 bg-warning" >
+<form (ngSubmit)="submitForm()" #contactForm="ngForm">
+
+<div class="field">
+    <label class="label">Username:</label>
+    <input type="text" name="Username" class="input" 
+    [(ngModel)]="Username" #UsernameInput="ngModel" required>
+    <div class="help is-error" *ngIf="UsernameInput.invalid && UsernameInput.touched">
+        Your Username is required
+    </div>
+</div>
+<div class="field">
+    <label class="label">Password:</label>
+    <input type="password" name="password" class="input" 
+    [(ngModel)]="password" #passwordInput="ngModel" required>
+    <div class="help is-error" *ngIf="passwordInput.invalid && passwordInput.touched">
+        You need to enter a password.
+    </div>
+   
+</div>
+<button type="submit" class="button" [disabled]=contactForm.invalid>Log In</button>
+</form>
+    </div>
+</div>

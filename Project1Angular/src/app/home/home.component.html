@@ -1,0 +1,24 @@
+<p>home works!</p>
+
+<input [title]="title"><br>
+<input [(ngModel)]="title"><br>
+<button type="submit" (click)="func()">This is a button</button><br>
+<input [(ngModel)]="element"><br>
+<header (mouseover)="func()">I can learn Angular believe in {{ title }}</header>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of array">
+      <td>{{s}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- this.array.push(this.element) -->

@@ -1,0 +1,20 @@
+.field{
+    width: 100%;
+    clear:both;
+
+}
+
+.field input{
+    width:100%;
+    clear:both;
+}
+
+#formWrapper{
+    padding: 10px;
+}
+#backgroundImage{
+    background-image: url(/assets/JavaPic.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
