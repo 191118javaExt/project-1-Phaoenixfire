@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { FooterComponent } from './footer/footer.component';
-import { EmployeeComponent } from './employee/employee.component';
+import { HomeComponent } from './HomePage/home/home.component';
+import { FooterComponent } from './HomePage/footer/footer.component';
 import { AdministratorComponent } from './administrator/administrator.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './HomePage/login/login.component';
 import { AppComponent } from './app.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 
 const routes: Routes = [
@@ -15,12 +15,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'employee',
-    loadChildren: 'app/employee/employee.module#employeeModule'
-  },
-  {
     path:'administrator',
     component:AdministratorComponent
+  },
+  {
+    path:'employee',
+    component:EmployeeComponent
   }
 ];
 

@@ -1,0 +1,26 @@
+
+#backgroundImage{
+    background-image: url(/assets/JavaPic.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.field{
+    width: 100%;
+    clear:both;
+}
+
+.field input{
+    width:100%;
+    clear:both;
+}
+
+.label{
+    padding-right: 5px;
+}
+
+#reimburseForm {
+    
+    margin-left: 5%;
+}

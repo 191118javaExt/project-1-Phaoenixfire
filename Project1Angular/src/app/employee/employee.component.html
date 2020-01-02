@@ -1,1 +1,29 @@
-<p>employee works!</p>
+<div class=row>
+    <div class="col-sm-4 bg-warning"  style="margin: 0;">
+        <form id="reimburseForm" (ngSubmit)="submitForm()" #contactForm="ngForm">
+            <legend>Submit New Reimbursement</legend>
+            <div>
+                <label class="label">Reimbursement Type:</label><br>
+                <label class="label">Lodging: </label>
+                <input type="radio" name="ReimbursementType" value="Lodging"><br>
+                <label class="label">Travel: </label>
+                <input type="radio" name="ReimbursementType" value="Travel"><br>
+                <label class="label">Food: </label>
+                <input type="radio" name="ReimbursementType" value="Food"><br>
+                <label class="label">Other: </label>
+                <input type="radio" name="ReimbursementType" value="Other" checked>
+            </div>
+            <label class="label">Reimbursement Amount:</label><br>
+            <input type="text"><br>
+            <label class="label">Reimbursement Description:</label><br>
+            <textarea></textarea><br>
+            <label class="label">Submit Receipt: </label><br>
+            <button type="submit">Submit Reimbursement</button>
+        </form>
+
+    </div>
+    <div class="col-sm-4" id="backgroundImage"></div>
+    <div class="col-sm-4 bg-warning" style="margin: 0;">
+        This is where the text for previous reimbursements will go
+    </div>
+</div>
