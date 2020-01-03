@@ -1,32 +1,107 @@
 package com.revature.models;
 
-public class Employee {
+import java.io.Serializable;
 
-	private int ers_users_id;
-	private String ers_username;
-	private String ers_password;
-	private String user_first_name;
-	private String user_last_name;
-	private String user_email;
-	private int user_role_id;
+public class Employee implements Serializable{
+
+
+	private static final long serialVersionUID = 7890818098131557464L;
+	
+	private int id;
+	private String username;
+	private String password;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private int roleId;
 	
 	
-	public Employee(int ers_users_id, String ers_username, String ers_password, String user_first_name,
-			String user_last_name, String user_email, int user_role_id) {
-		super();
-		this.ers_users_id = ers_users_id;
-		this.ers_username = ers_username;
-		this.ers_password = ers_password;
-		this.user_first_name = user_first_name;
-		this.user_last_name = user_last_name;
-		this.user_email = user_email;
-		this.user_role_id = user_role_id;
-	}
-
-
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public Employee(int id, String username, String password, String firstName, String lastName, String email,
+			int roleId) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.roleId = roleId;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
 
@@ -34,13 +109,13 @@ public class Employee {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ers_password == null) ? 0 : ers_password.hashCode());
-		result = prime * result + ((ers_username == null) ? 0 : ers_username.hashCode());
-		result = prime * result + ers_users_id;
-		result = prime * result + ((user_email == null) ? 0 : user_email.hashCode());
-		result = prime * result + ((user_first_name == null) ? 0 : user_first_name.hashCode());
-		result = prime * result + ((user_last_name == null) ? 0 : user_last_name.hashCode());
-		result = prime * result + user_role_id;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + roleId;
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -54,113 +129,43 @@ public class Employee {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (ers_password == null) {
-			if (other.ers_password != null)
+		if (email == null) {
+			if (other.email != null)
 				return false;
-		} else if (!ers_password.equals(other.ers_password))
+		} else if (!email.equals(other.email))
 			return false;
-		if (ers_username == null) {
-			if (other.ers_username != null)
+		if (firstName == null) {
+			if (other.firstName != null)
 				return false;
-		} else if (!ers_username.equals(other.ers_username))
+		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (ers_users_id != other.ers_users_id)
+		if (id != other.id)
 			return false;
-		if (user_email == null) {
-			if (other.user_email != null)
+		if (lastName == null) {
+			if (other.lastName != null)
 				return false;
-		} else if (!user_email.equals(other.user_email))
+		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (user_first_name == null) {
-			if (other.user_first_name != null)
+		if (password == null) {
+			if (other.password != null)
 				return false;
-		} else if (!user_first_name.equals(other.user_first_name))
+		} else if (!password.equals(other.password))
 			return false;
-		if (user_last_name == null) {
-			if (other.user_last_name != null)
+		if (roleId != other.roleId)
+			return false;
+		if (username == null) {
+			if (other.username != null)
 				return false;
-		} else if (!user_last_name.equals(other.user_last_name))
-			return false;
-		if (user_role_id != other.user_role_id)
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
 	}
 
 
-	public int getErs_users_id() {
-		return ers_users_id;
-	}
-
-
-	public void setErs_users_id(int ers_users_id) {
-		this.ers_users_id = ers_users_id;
-	}
-
-
-	public String getErs_username() {
-		return ers_username;
-	}
-
-
-	public void setErs_username(String ers_username) {
-		this.ers_username = ers_username;
-	}
-
-
-	public String getErs_password() {
-		return ers_password;
-	}
-
-
-	public void setErs_password(String ers_password) {
-		this.ers_password = ers_password;
-	}
-
-
-	public String getUser_first_name() {
-		return user_first_name;
-	}
-
-
-	public void setUser_first_name(String user_first_name) {
-		this.user_first_name = user_first_name;
-	}
-
-
-	public String getUser_last_name() {
-		return user_last_name;
-	}
-
-
-	public void setUser_last_name(String user_last_name) {
-		this.user_last_name = user_last_name;
-	}
-
-
-	public String getUser_email() {
-		return user_email;
-	}
-
-
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
-	}
-
-
-	public int getUser_role_id() {
-		return user_role_id;
-	}
-
-
-	public void setUser_role_id(int user_role_id) {
-		this.user_role_id = user_role_id;
-	}
-
-
 	@Override
 	public String toString() {
-		return "Employee [ers_users_id=" + ers_users_id + ", ers_username=" + ers_username + ", ers_password="
-				+ ers_password + ", user_first_name=" + user_first_name + ", user_last_name=" + user_last_name
-				+ ", user_email=" + user_email + ", user_role_id=" + user_role_id + "]";
+		return "Employee [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", roleId=" + roleId + "]";
 	}
 }
+	

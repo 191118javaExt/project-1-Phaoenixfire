@@ -3,43 +3,53 @@ package com.revature.services;
 import java.util.List;
 
 import com.revature.models.Employee;
+import com.revature.models.EmployeeDTO;
 import com.revature.models.Reinbursement;
 import com.revature.repositories.EmployeeDAO;
 import com.revature.repositories.EmployeeDAOImpl;
 
 public class EmployeeServices {
 
-	EmployeeDAO repository = new EmployeeDAOImpl();
+	static EmployeeDAO repository = new EmployeeDAOImpl();
 
 	public Reinbursement submitRequest() {
 		return repository.submitRequest();
 	}
 
-	public Reinbursement viewPastRequest() {
-		return repository.viewPastRequest();
+	public Reinbursement viewPastRequest(int id) {
+		return repository.viewPastRequest(id);
 	}
 
-	public Reinbursement viewPendingRequests(int ERS_USERS_ID) {
-		return repository.viewPendingRequests(ERS_USERS_ID);
+	public Reinbursement viewPendingRequests(int id) {
+		return repository.viewPendingRequests(id);
 	}
 
-	public List<Employee> findAllEmployees() {
+	public static List<Employee> findAllEmployees() {
 		return repository.findAllEmployees();
 	}
 
-	public Employee findByUsername(String username) {
+	public static Employee findByUsername(String username) {
 		return repository.findByUsername(username);
 	}
 
-	public Employee confirmLogin(String username, String password) {
+	public static Employee confirmLogin(String username, String password) {
 		Employee e = findByUsername(username);
 		if (e == null) {
 			return null;
 		}
-		if (e.getErs_password().equals(password)) {
+		if (e.getPassword().equals(password)) {
 			return e;
 		} else {
 			return null;
 		}
+	}
+
+	public static EmployeeDTO convertToDTO(Employee e) {
+		
+		return new EmployeeDTO(e.getId(),
+				e.getFirstName(),
+				e.getLastName(),
+				e.getUsername(),
+				e.getPassword());
 	}
 }

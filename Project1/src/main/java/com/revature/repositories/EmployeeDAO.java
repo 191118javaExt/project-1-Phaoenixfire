@@ -9,7 +9,7 @@ import com.revature.models.Reinbursement;
 public interface EmployeeDAO {
 	
 		public Reinbursement submitRequest();
-		public Reinbursement viewPastRequest();
+		public Reinbursement viewPastRequest(int ERS_USERS_ID);
 		public Reinbursement viewPendingRequests(int ERS_USERS_ID);
 		public List<Employee> findAllEmployees();
 		public Employee findByUsername(String username);
