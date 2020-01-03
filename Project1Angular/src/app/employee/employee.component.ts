@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../models/employee';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-employee',
@@ -8,21 +9,21 @@ import { Employee } from '../models/employee';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-  
-  currentUser: Employee;
-  constructor(private us: EmployeeComponent, private router: Router) { }
+
+  currentEmployee: Employee;
+  constructor(private ls: LoginService, private router: Router) { }
 
   ngOnInit() {
     let userString: string = sessionStorage.getItem('currentUser');
     if(userString === null) {
       this.router.navigate(['/login']);
     } else {
-      this.currentUser = JSON.parse(userString);
+      this.currentEmployee = JSON.parse(userString);
     }
   }
 
   logout() {
-    this.us.logout();
+    this.ls.logout();
     sessionStorage.removeItem('currentUser');
     this.router.navigate(['/login']);
   }
