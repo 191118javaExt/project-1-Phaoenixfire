@@ -11,8 +11,11 @@ import { EmployeeComponent } from './employee/employee.component';
 const routes: Routes = [
   {
     path: '',
-    component:LoginComponent,
-    pathMatch: 'full'
+    component:LoginComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path:'administrator',
@@ -21,6 +24,11 @@ const routes: Routes = [
   {
     path:'employee',
     component:EmployeeComponent
+  },
+  {
+    path:'**',
+    redirectTo: 'login',
+    pathMatch:'full'
   }
 ];
 
