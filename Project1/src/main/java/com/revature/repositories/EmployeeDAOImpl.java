@@ -33,21 +33,21 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, ERS_USERS_ID);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
-			int reimb_id = rs.getInt("reimb_id");
-			double reimb_amount = rs.getInt("reimb_amount");
-			LocalDateTime reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
-			LocalDateTime reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();
-			String reimb_description = rs.getString("reimb_description");
-			Blob reimb_receipt = rs.getBlob("reimb_receipt");
-			int reimb_author = rs.getInt("reimb_author");
-			int reimb_resolver = rs.getInt("reimb_resolver");
-			int reimb_status_id = rs.getInt("reimb_status_id");
-			int reimb_type_id = rs.getInt("reimb_type_id");
-			
-			re = new Reinbursement(reimb_id,reimb_amount,reimb_submitted,reimb_resolved,
-					reimb_description,reimb_receipt,reimb_author,reimb_resolver,reimb_status_id,reimb_type_id);
-			
+			while (rs.next()) {
+				int reimb_id = rs.getInt("reimb_id");
+				double reimb_amount = rs.getInt("reimb_amount");
+				LocalDateTime reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
+				LocalDateTime reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();
+				String reimb_description = rs.getString("reimb_description");
+				Blob reimb_receipt = rs.getBlob("reimb_receipt");
+				int reimb_author = rs.getInt("reimb_author");
+				int reimb_resolver = rs.getInt("reimb_resolver");
+				int reimb_status_id = rs.getInt("reimb_status_id");
+				int reimb_type_id = rs.getInt("reimb_type_id");
+
+				re = new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,
+						reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id);
+
 			}
 			System.out.println(re);
 			return re;
@@ -57,7 +57,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return null;
 	}
 
-
 	public Reinbursement viewPendingRequests(int ERS_USERS_ID) {
 		Reinbursement re = null;
 		try (Connection conn = ConnectionUtil.getConnection()) {
@@ -66,21 +65,21 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, ERS_USERS_ID);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
-			int reimb_id = rs.getInt("reimb_id");
-			double reimb_amount = rs.getInt("reimb_amount");
-			LocalDateTime reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
-			LocalDateTime reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();
-			String reimb_description = rs.getString("reimb_description");
-			Blob reimb_receipt = rs.getBlob("reimb_receipt");
-			int reimb_author = rs.getInt("reimb_author");
-			int reimb_resolver = rs.getInt("reimb_resolver");
-			int reimb_status_id = rs.getInt("reimb_status_id");
-			int reimb_type_id = rs.getInt("reimb_type_id");
-			
-			re = new Reinbursement(reimb_id,reimb_amount,reimb_submitted,reimb_resolved,
-					reimb_description,reimb_receipt,reimb_author,reimb_resolver,reimb_status_id,reimb_type_id);
-			
+			while (rs.next()) {
+				int reimb_id = rs.getInt("reimb_id");
+				double reimb_amount = rs.getInt("reimb_amount");
+				LocalDateTime reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
+				LocalDateTime reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();
+				String reimb_description = rs.getString("reimb_description");
+				Blob reimb_receipt = rs.getBlob("reimb_receipt");
+				int reimb_author = rs.getInt("reimb_author");
+				int reimb_resolver = rs.getInt("reimb_resolver");
+				int reimb_status_id = rs.getInt("reimb_status_id");
+				int reimb_type_id = rs.getInt("reimb_type_id");
+
+				re = new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,
+						reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id);
+
 			}
 			System.out.println(re);
 			return re;
@@ -91,10 +90,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	public List<Employee> findAllEmployees() {
-
+		List<Employee> empList = new ArrayList<Employee>();
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			List<Employee> empList = new ArrayList<Employee>();
 			String sql = "Select * from ers_users";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -107,20 +105,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				String email = rs.getString("user_email");
 				int roleId = rs.getInt("user_role_id");
 
-				Employee e = new Employee(id, username, password, firstName, lastName,
-						email, roleId);
+				Employee e = new Employee(id, username, password, firstName, lastName, email, roleId);
 				empList.add(e);
 			}
-			for(Employee f : empList) {
-				System.out.println(f);
-			}
-			return empList;
+//			for(Employee f : empList) {
+//				System.out.println(f);
+//			}
 
 		} catch (SQLException e) {
 			logger.warn("something went wrong", e);
 		}
+		return empList;
 
-		return null;
 	}
 
 	@Override
@@ -140,9 +136,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				String email = rs.getString("user_email");
 				int roleId = rs.getInt("user_role_id");
 
-				e = new Employee(id, ers_username, password, firstName, lastName, email,
-						roleId);
-				
+				e = new Employee(id, ers_username, password, firstName, lastName, email, roleId);
+
 			}
 			System.out.println(e);
 			return e;

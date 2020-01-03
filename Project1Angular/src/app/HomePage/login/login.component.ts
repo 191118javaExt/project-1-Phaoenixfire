@@ -16,16 +16,22 @@ export class LoginComponent implements OnInit {
   constructor(private ls: LoginService, private router: Router) { }
 
   ngOnInit() {
-   
+
   }
-  
-  sendLogin(){
+
+  sendLogin() {
     this.ls.login(this.username, this.password).subscribe(
       (response: Employee) => {
-        sessionStorage.setItem('currentUser', JSON.stringify(response));
         console.log(response);
-        this.router.navigate(['/employee']);
+        if (response === null) {
+          this.router.navigate(['/login']);
+        } else {
+          sessionStorage.setItem('currentEmployee', JSON.stringify(response));
+          console.log(response);
+          this.router.navigate(['/employee']);
+        }
       }
     )
   }
+
 }

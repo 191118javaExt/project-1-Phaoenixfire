@@ -14,12 +14,9 @@ export class EmployeeComponent implements OnInit {
   constructor(private ls: LoginService, private router: Router) { }
 
   ngOnInit() {
-    let userString: string = sessionStorage.getItem('currentUser');
-    if(userString === null) {
-      this.router.navigate(['/login']);
-    } else {
-      this.currentEmployee = JSON.parse(userString);
-    }
+    let userString: any = sessionStorage.getItem('currentEmployee');
+    this.currentEmployee = JSON.parse(userString);
+
   }
 
   logout() {

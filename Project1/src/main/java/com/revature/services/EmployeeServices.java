@@ -45,11 +45,7 @@ public class EmployeeServices {
 	}
 
 	public static EmployeeDTO convertToDTO(Employee e) {
-		
-		return new EmployeeDTO(e.getId(),
-				e.getFirstName(),
-				e.getLastName(),
-				e.getUsername(),
-				e.getPassword());
+
+		return new EmployeeDTO(e.getId(), e.getFirstName(), e.getLastName(), e.getUsername(), e.getPassword());
 	}
 }
