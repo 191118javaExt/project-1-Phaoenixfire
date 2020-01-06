@@ -14,6 +14,8 @@ public class Reinbursement {
 	private int reimb_resolver;
 	private int reimb_status_id;
 	private int reimb_type_id;
+	
+	
 	public int getReimb_id() {
 		return reimb_id;
 	}

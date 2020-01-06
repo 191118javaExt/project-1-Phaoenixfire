@@ -1,6 +1,6 @@
 <div class="col-sm-12 bg-warning"> Welcome {{ currentEmployee.firstName }} {{currentEmployee.lastName }}</div>
 <div class=row>
-    <div class="col-sm-4 bg-warning"  style="margin: 0;">
+    <div class="col-sm-4 bg-warning" style="margin: 0;">
         <form id="reimburseForm" (ngSubmit)="submitForm()" #contactForm="ngForm">
             <legend>Submit New Reimbursement</legend>
             <div>
@@ -25,6 +25,21 @@
     </div>
     <div class="col-sm-4" id="backgroundImage"></div>
     <div class="col-sm-4 bg-warning" style="margin: 0;">
-        This is where the text for previous reimbursements will go
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Date Submitted</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let s of pastReimbursements">
+                    <td>{{s.reimb_amount}}</td>
+                    <td>{{s.reimb_submitted}}</td>
+                    <td>{{s.reimb_status_id}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

@@ -16,12 +16,12 @@ public class EmployeeServices {
 		return repository.submitRequest();
 	}
 
-	public Reinbursement viewPastRequest(int id) {
-		return repository.viewPastRequest(id);
+	public static List<Reinbursement> viewPastRequests(int userId) {
+		return repository.viewPastRequests(userId);
 	}
 
-	public Reinbursement viewPendingRequests(int id) {
-		return repository.viewPendingRequests(id);
+	public static List<Reinbursement> viewPendingRequests(int userId) {
+		return repository.viewPendingRequests(userId);
 	}
 
 	public static List<Employee> findAllEmployees() {

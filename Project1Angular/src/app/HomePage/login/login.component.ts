@@ -22,12 +22,10 @@ export class LoginComponent implements OnInit {
   sendLogin() {
     this.ls.login(this.username, this.password).subscribe(
       (response: Employee) => {
-        console.log(response);
         if (response === null) {
           this.router.navigate(['/login']);
         } else {
           sessionStorage.setItem('currentEmployee', JSON.stringify(response));
-          console.log(response);
           this.router.navigate(['/employee']);
         }
       }

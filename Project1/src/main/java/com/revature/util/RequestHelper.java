@@ -15,7 +15,9 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.Employee;
 import com.revature.models.EmployeeDTO;
+import com.revature.models.IdTemplate;
 import com.revature.models.LoginTemplate;
+import com.revature.models.Reinbursement;
 import com.revature.services.EmployeeServices;
 
 public class RequestHelper {
@@ -74,19 +76,38 @@ public class RequestHelper {
 		res.setContentType("application/json");
 		List<Employee> all = EmployeeServices.findAllEmployees();
 		List<EmployeeDTO> allDTO = new ArrayList<>();
-		
-		for(Employee e : all) {
-			allDTO.add(new EmployeeDTO(e.getId(),
-					e.getFirstName(),
-					e.getLastName(),
-					e.getUsername(),
-					e.getPassword(),
+
+		for (Employee e : all) {
+			allDTO.add(new EmployeeDTO(e.getId(), e.getFirstName(), e.getLastName(), e.getUsername(), e.getPassword(),
 					e.getRoleId()));
 		}
-		
+
 		String json = om.writeValueAsString(all);
-		
+
 		PrintWriter out = res.getWriter();
 		out.println(json);
 	}
+
+	public static void viewPastRequests(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		res.setContentType("application/json");
+		BufferedReader reader = req.getReader();
+
+		StringBuilder s = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			s.append(line);
+			line = reader.readLine();
+		}
+		String body = s.toString();
+		IdTemplate idTemp = om.readValue(body, IdTemplate.class);
+		int userId = idTemp.getUserId();
+		
+		List<Reinbursement> reimb = EmployeeServices.viewPastRequests(userId);
+		
+		String json = om.writeValueAsString(reimb);
+
+		PrintWriter out = res.getWriter();
+		out.println(json);
+	}
+
 }

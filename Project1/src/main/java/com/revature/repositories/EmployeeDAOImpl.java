@@ -25,31 +25,43 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return null;
 	}
 
-	public Reinbursement viewPastRequest(int ERS_USERS_ID) {
-		Reinbursement re = null;
+	public List<Reinbursement> viewPastRequests(int userId) {
+		List<Reinbursement> re = new ArrayList<Reinbursement>();
+		LocalDateTime reimb_submitted;
+		LocalDateTime reimb_resolved;
+		Blob reimb_receipt;
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "Select * from ers_reimbursement where REIMB_AUTHOR = ? and REIMB_STATUS_ID = 1";
+			String sql = "Select * from ers_reimbursement where REIMB_AUTHOR = ? and (REIMB_STATUS_ID = 2 or REIMB_STATUS_ID = 3)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, ERS_USERS_ID);
+			stmt.setInt(1, userId);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				int reimb_id = rs.getInt("reimb_id");
 				double reimb_amount = rs.getInt("reimb_amount");
-				LocalDateTime reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
-				LocalDateTime reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();
+				if(rs.getTimestamp("reimb_submitted") != null) {
+				reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
+				}
+				else { reimb_submitted = null;}
+				if(rs.getTimestamp("reimb_resolved") != null){
+				reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();}
+				else { reimb_resolved = null;
+				}
 				String reimb_description = rs.getString("reimb_description");
-				Blob reimb_receipt = rs.getBlob("reimb_receipt");
+				if(rs.getBlob("reimb_receipt") != null) {
+					reimb_receipt = rs.getBlob("reimb_receipt");
+				} else {
+					reimb_receipt = null;
+				}
 				int reimb_author = rs.getInt("reimb_author");
 				int reimb_resolver = rs.getInt("reimb_resolver");
 				int reimb_status_id = rs.getInt("reimb_status_id");
 				int reimb_type_id = rs.getInt("reimb_type_id");
 
-				re = new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,
+				Reinbursement reimb= new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,
 						reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id);
-
+				re.add(reimb);
 			}
-			System.out.println(re);
 			return re;
 		} catch (SQLException e) {
 			logger.warn("Something went wrong", e);
@@ -57,13 +69,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return null;
 	}
 
-	public Reinbursement viewPendingRequests(int ERS_USERS_ID) {
-		Reinbursement re = null;
+	public List<Reinbursement> viewPendingRequests(int userId) {
+
+		List<Reinbursement> re = new ArrayList<Reinbursement>();
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
 			String sql = "Select * from ers_reimbursement where REIMB_AUTHOR = ? and REIMB_STATUS_ID = 1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, ERS_USERS_ID);
+			stmt.setInt(1, userId);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				int reimb_id = rs.getInt("reimb_id");
@@ -77,16 +90,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				int reimb_status_id = rs.getInt("reimb_status_id");
 				int reimb_type_id = rs.getInt("reimb_type_id");
 
-				re = new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,
-						reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id);
-
+				Reinbursement reimb = new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved,
+						reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id);
+				re.add(reimb);
 			}
-			System.out.println(re);
-			return re;
+
 		} catch (SQLException e) {
 			logger.warn("Something went wrong", e);
 		}
-		return null;
+		return re;
 	}
 
 	public List<Employee> findAllEmployees() {
