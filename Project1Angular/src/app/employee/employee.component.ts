@@ -13,20 +13,18 @@ import { Reimbursement } from '../models/reimbursement';
 export class EmployeeComponent implements OnInit {
 
   currentEmployee: Employee;
-  pastReimbursements: Reimbursement;
+  pastReimbursements: Reimbursement;selectedFile: ImageData;
   constructor(private ls: LoginService, private es: EmployeeService, private router: Router) { }
+  
 
   ngOnInit() {
     let userString: any = sessionStorage.getItem('currentEmployee');
     this.currentEmployee = JSON.parse(userString);
-    console.log(this.currentEmployee)
     this.es.pastReimbursement(this.currentEmployee.id).subscribe(
     (response: Reimbursement) => {
-      console.log(response)
       let reimbursementString = JSON.stringify(response);
-      console.log(reimbursementString);
       this.pastReimbursements = JSON.parse(reimbursementString);
-      console.log(this.pastReimbursements);
+
     }
     );
   }

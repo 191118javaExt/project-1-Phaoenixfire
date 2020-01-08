@@ -5,5 +5,6 @@ export class Employee {
 	private lastName: string;
 	public username: string;
 	private password: string;
+	public roleId: number;
 }
 

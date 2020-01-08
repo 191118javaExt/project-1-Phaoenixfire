@@ -1,35 +1,37 @@
-<div class="col-sm-12 bg-warning"> Welcome {{ currentEmployee.firstName }} {{currentEmployee.lastName }}</div>
+<div class="bg-lg-12 bg-warning text-center"> Welcome {{ currentEmployee.firstName }} {{currentEmployee.lastName }}</div>
 <div class=row>
-    <div class="col-sm-4 bg-warning" style="margin: 0;">
+    <div class="col-sm-3 bg-warning" style="margin: 0;">
         <form id="reimburseForm" (ngSubmit)="submitForm()" #contactForm="ngForm">
             <legend>Submit New Reimbursement</legend>
-            <div>
-                <label class="label">Reimbursement Type:</label><br>
-                <label class="label">Lodging: </label>
-                <input type="radio" name="ReimbursementType" value="Lodging"><br>
-                <label class="label">Travel: </label>
-                <input type="radio" name="ReimbursementType" value="Travel"><br>
-                <label class="label">Food: </label>
-                <input type="radio" name="ReimbursementType" value="Food"><br>
-                <label class="label">Other: </label>
-                <input type="radio" name="ReimbursementType" value="Other" checked>
-            </div>
+            <label class="label">Reimbursement Type:</label><br> 
+                <select [(ngModel)]="reimb_type_id" name="reimb_type_id" required>
+                <option value="1">Lodging</option>
+                <option value="2">Travel</option>
+                <option value="3">Food</option>
+                <option value="4" selected>Other</option>
+              </select><br>
             <label class="label">Reimbursement Amount:</label><br>
-            <input type="text"><br>
+            <input type="text" [(ngModel)]="reimb_amount" name="reimb_amount"><br>
             <label class="label">Reimbursement Description:</label><br>
-            <textarea></textarea><br>
+            <textarea [(ngModel)]="reimb_description" name="reimb_description"></textarea><br>
             <label class="label">Submit Receipt: </label><br>
-            <button type="submit">Submit Reimbursement</button>
+            <input #imageInput
+            type="file"
+            accept="image/*"
+            (change)="processFile(imageInput)"><br>
+            <button (click)="createReimbursement()" type="submit" style="margin-top: 5px;">Submit Reimbursement</button>
         </form>
-
     </div>
-    <div class="col-sm-4" id="backgroundImage"></div>
-    <div class="col-sm-4 bg-warning" style="margin: 0;">
+    <div class="col-sm-3" id="backgroundImage"></div>
+    <div class="col-sm-6 bg-warning" style="margin: 0;">
+        <legend class="text-center">Reimbursement Requests</legend>
         <table class="table table-bordered">
+            
             <thead>
                 <tr>
                     <th>Amount</th>
                     <th>Date Submitted</th>
+                    <th>Type</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -37,7 +39,18 @@
                 <tr *ngFor="let s of pastReimbursements">
                     <td>{{s.reimb_amount}}</td>
                     <td>{{s.reimb_submitted}}</td>
-                    <td>{{s.reimb_status_id}}</td>
+                    <td [ngSwitch]="s.type">
+                        <span *ngSwitchCase="1">Lodging</span>
+                        <span *ngSwitchCase="2">Travel</span>
+                        <span *ngSwitchCase="3">Food</span>
+                        <span *ngSwitchCase="4">Other</span>
+                        <span *ngSwitchDefault>Other</span>
+                    </td>
+                    <td [ngSwitch]="s.reimb_status_id">
+                        <span *ngSwitchCase="1">Pending</span>
+                        <span *ngSwitchCase="2">Approved</span>
+                        <span *ngSwitchCase="3">Denied</span>
+                    </td>
                 </tr>
             </tbody>
         </table>

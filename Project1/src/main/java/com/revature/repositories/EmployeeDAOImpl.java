@@ -32,7 +32,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		Blob reimb_receipt;
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "Select * from ers_reimbursement where REIMB_AUTHOR = ? and (REIMB_STATUS_ID = 2 or REIMB_STATUS_ID = 3)";
+			String sql = "Select * from ers_reimbursement where REIMB_AUTHOR = ?;";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, userId);
 			ResultSet rs = stmt.executeQuery();

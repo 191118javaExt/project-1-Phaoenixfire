@@ -1,1 +1,35 @@
-<p>administrator works!</p>
+<div class="bg-lg-12 bg-warning text-center"> Welcome {{ currentEmployee.firstName }} {{currentEmployee.lastName }}</div>
+<div class="col-sm-3" id="backgroundImage"></div>
+    <div class="col-sm-3" id="backgroundImage"></div>
+    <div class="col-sm-6 bg-warning" style="margin: 0;">
+        <legend class="text-center">Reimbursement Requests</legend>
+        <table class="table table-bordered">
+            
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Date Submitted</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let s of pastReimbursements">
+                    <td>{{s.reimb_amount}}</td>
+                    <td>{{s.reimb_submitted}}</td>
+                    <td [ngSwitch]="s.type">
+                        <span *ngSwitchCase="1">Lodging</span>
+                        <span *ngSwitchCase="2">Travel</span>
+                        <span *ngSwitchCase="3">Food</span>
+                        <span *ngSwitchCase="4">Other</span>
+                        <span *ngSwitchDefault>Other</span>
+                    </td>
+                    <td [ngSwitch]="s.reimb_status_id">
+                        <span *ngSwitchCase="1">Pending</span>
+                        <span *ngSwitchCase="2">Approved</span>
+                        <span *ngSwitchCase="3">Denied</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

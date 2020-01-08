@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Employee } from '../models/employee';
 
 @Component({
   selector: 'app-administrator',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministratorComponent implements OnInit {
 
+  currentEmployee: Employee;
   constructor() { }
 
   ngOnInit() {
+    let userString: any = sessionStorage.getItem('currentEmployee');
+    this.currentEmployee = JSON.parse(userString);
   }
 
 }

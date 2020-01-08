@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  currentEmployee: Employee;
   username: string = '';
   password: string = '';
 
@@ -26,7 +27,14 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/login']);
         } else {
           sessionStorage.setItem('currentEmployee', JSON.stringify(response));
-          this.router.navigate(['/employee']);
+          let userString: any = sessionStorage.getItem('currentEmployee');
+          this.currentEmployee = JSON.parse(userString);
+          console.log(this.currentEmployee);
+          if (this.currentEmployee.roleId == 1) {
+            this.router.navigate(['/administrator'])
+            
+          }
+          else this.router.navigate(['/employee']);
         }
       }
     )
