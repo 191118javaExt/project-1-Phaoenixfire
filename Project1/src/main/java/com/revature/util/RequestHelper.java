@@ -101,13 +101,25 @@ public class RequestHelper {
 		String body = s.toString();
 		IdTemplate idTemp = om.readValue(body, IdTemplate.class);
 		int userId = idTemp.getUserId();
-		
+
 		List<Reinbursement> reimb = EmployeeServices.viewPastRequests(userId);
-		
+
 		String json = om.writeValueAsString(reimb);
 
 		PrintWriter out = res.getWriter();
 		out.println(json);
 	}
 
+	public static void manageRequests(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		res.setContentType("application/json");
+		BufferedReader reader = req.getReader();
+
+		StringBuilder s = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			s.append(line);
+			line = reader.readLine();
+		}
+		String body = s.toString();
+	}
 }

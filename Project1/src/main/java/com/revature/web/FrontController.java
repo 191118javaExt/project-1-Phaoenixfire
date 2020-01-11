@@ -35,7 +35,13 @@ public class FrontController extends HttpServlet {
 		case "viewPastRequests":
 			RequestHelper.viewPastRequests(req,res);
 			break;
+		
+		case "manageRequests":
+			RequestHelper.manageRequests(req,res);
+			break;
+
 		}
+		
 
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)

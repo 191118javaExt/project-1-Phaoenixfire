@@ -1,13 +1,14 @@
 package com.revature.models;
 
 import java.sql.Blob;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Reinbursement {
 	private int reimb_id;
 	private double reimb_amount;
-	private LocalDateTime reimb_submitted;
-	private LocalDateTime reimb_resolved;
+	private Timestamp reimb_submitted;
+	private Timestamp reimb_resolved;
 	private String reimb_description;
 	private Blob reimb_receipt;
 	private int reimb_author;
@@ -28,16 +29,16 @@ public class Reinbursement {
 	public void setReimb_amount(double reimb_amount) {
 		this.reimb_amount = reimb_amount;
 	}
-	public LocalDateTime getReimb_submitted() {
+	public Timestamp getReimb_submitted() {
 		return reimb_submitted;
 	}
-	public void setReimb_submitted(LocalDateTime reimb_submitted) {
+	public void setReimb_submitted(Timestamp reimb_submitted) {
 		this.reimb_submitted = reimb_submitted;
 	}
-	public LocalDateTime getReimb_resolved() {
+	public Timestamp getReimb_resolved() {
 		return reimb_resolved;
 	}
-	public void setReimb_resolved(LocalDateTime reimb_resolved) {
+	public void setReimb_resolved(Timestamp reimb_resolved) {
 		this.reimb_resolved = reimb_resolved;
 	}
 	public String getReimb_description() {
@@ -126,7 +127,7 @@ public class Reinbursement {
 				+ ", reimb_resolver=" + reimb_resolver + ", reimb_status_id=" + reimb_status_id + ", reimb_type_id="
 				+ reimb_type_id + "]";
 	}
-	public Reinbursement(int reimb_id, double reimb_amount, LocalDateTime reimb_submitted, LocalDateTime reimb_resolved,
+	public Reinbursement(int reimb_id, double reimb_amount, Timestamp reimb_submitted, Timestamp reimb_resolved,
 			String reimb_description, Blob reimb_receipt, int reimb_author, int reimb_resolver, int reimb_status_id,
 			int reimb_type_id) {
 		super();
@@ -141,9 +142,17 @@ public class Reinbursement {
 		this.reimb_status_id = reimb_status_id;
 		this.reimb_type_id = reimb_type_id;
 	}
-	public Reinbursement() {
+	
+	public Reinbursement(double reimb_amount, Timestamp reimb_submitted, Blob reimb_receipt, String reimb_description, int reimb_author,
+			int reimb_status_id, int reimb_type_id) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.reimb_amount = reimb_amount;
+		this.reimb_submitted = reimb_submitted;
+		this.reimb_receipt = reimb_receipt;
+		this.reimb_description = reimb_description;
+		this.reimb_author = reimb_author;
+		this.reimb_status_id = reimb_status_id;
+		this.reimb_type_id = reimb_type_id;
 	}
 
 	

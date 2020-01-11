@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.revature.models.Employee;
+import com.revature.models.ReimbursementTemplate;
 import com.revature.models.Reinbursement;
 import com.revature.util.ConnectionUtil;
 
@@ -20,15 +22,36 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class);
 
-	public Reinbursement submitRequest() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean submitRequest(ReimbursementTemplate rt) {
+		Reinbursement reimb = new Reinbursement(rt.getAmount(), Timestamp.valueOf(LocalDateTime.now()), null,
+				rt.getDescription(), rt.getUserId(), 1, rt.getType());
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "INSERT INTO reinburs (reimb_amount, reimb_submitted, reimb_description, reimb_author,reimb_status_id, reimb_type_id) "
+					+ "VALUES (?, ?, ?, ?, ?, ?);";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setDouble(1, reimb.getReimb_amount());
+			stmt.setTimestamp(2, reimb.getReimb_submitted());
+			stmt.setString(3, reimb.getReimb_description());
+			stmt.setInt(4, reimb.getReimb_author());
+			stmt.setInt(5, reimb.getReimb_status_id());
+			stmt.setInt(6, reimb.getReimb_type_id());
+
+			stmt.execute();
+
+		} catch (SQLException ex) {
+			// logger.warn("Unable to insert reimbursement.", ex);
+			System.out.println(ex);
+		}
+		return true;
 	}
 
 	public List<Reinbursement> viewPastRequests(int userId) {
 		List<Reinbursement> re = new ArrayList<Reinbursement>();
-		LocalDateTime reimb_submitted;
-		LocalDateTime reimb_resolved;
+		Timestamp reimb_submitted;
+		Timestamp reimb_resolved;
 		Blob reimb_receipt;
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
@@ -39,16 +62,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			while (rs.next()) {
 				int reimb_id = rs.getInt("reimb_id");
 				double reimb_amount = rs.getInt("reimb_amount");
-				if(rs.getTimestamp("reimb_submitted") != null) {
-				reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
+				if (rs.getTimestamp("reimb_submitted") != null) {
+					reimb_submitted = rs.getTimestamp("reimb_submitted");
+				} else {
+					reimb_submitted = null;
 				}
-				else { reimb_submitted = null;}
-				if(rs.getTimestamp("reimb_resolved") != null){
-				reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();}
-				else { reimb_resolved = null;
+				if (rs.getTimestamp("reimb_resolved") != null) {
+					reimb_resolved = rs.getTimestamp("reimb_resolved");
+				} else {
+					reimb_resolved = null;
 				}
 				String reimb_description = rs.getString("reimb_description");
-				if(rs.getBlob("reimb_receipt") != null) {
+				if (rs.getBlob("reimb_receipt") != null) {
 					reimb_receipt = rs.getBlob("reimb_receipt");
 				} else {
 					reimb_receipt = null;
@@ -58,8 +83,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				int reimb_status_id = rs.getInt("reimb_status_id");
 				int reimb_type_id = rs.getInt("reimb_type_id");
 
-				Reinbursement reimb= new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,
-						reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id);
+				Reinbursement reimb = new Reinbursement(reimb_id, reimb_amount, reimb_submitted, reimb_resolved,
+						reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id);
 				re.add(reimb);
 			}
 			return re;
@@ -81,8 +106,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			while (rs.next()) {
 				int reimb_id = rs.getInt("reimb_id");
 				double reimb_amount = rs.getInt("reimb_amount");
-				LocalDateTime reimb_submitted = rs.getTimestamp("reimb_submitted").toLocalDateTime();
-				LocalDateTime reimb_resolved = rs.getTimestamp("reimb_resolved").toLocalDateTime();
+				Timestamp reimb_submitted = rs.getTimestamp("reimb_submitted");
+				Timestamp reimb_resolved = rs.getTimestamp("reimb_resolved");
 				String reimb_description = rs.getString("reimb_description");
 				Blob reimb_receipt = rs.getBlob("reimb_receipt");
 				int reimb_author = rs.getInt("reimb_author");

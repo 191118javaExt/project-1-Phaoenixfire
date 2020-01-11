@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.models.Employee;
 import com.revature.models.EmployeeDTO;
+import com.revature.models.ReimbursementTemplate;
 import com.revature.models.Reinbursement;
 import com.revature.repositories.EmployeeDAO;
 import com.revature.repositories.EmployeeDAOImpl;
@@ -12,8 +13,8 @@ public class EmployeeServices {
 
 	static EmployeeDAO repository = new EmployeeDAOImpl();
 
-	public Reinbursement submitRequest() {
-		return repository.submitRequest();
+	public static boolean submitRequest(ReimbursementTemplate rt) {
+		return repository.submitRequest(rt);
 	}
 
 	public static List<Reinbursement> viewPastRequests(int userId) {

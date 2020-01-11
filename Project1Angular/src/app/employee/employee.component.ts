@@ -13,7 +13,8 @@ import { Reimbursement } from '../models/reimbursement';
 export class EmployeeComponent implements OnInit {
 
   currentEmployee: Employee;
-  pastReimbursements: Reimbursement;selectedFile: ImageData;
+  pastReimbursements: Reimbursement;
+  selectedFile: ImageData;
   constructor(private ls: LoginService, private es: EmployeeService, private router: Router) { }
   
 
@@ -25,13 +26,6 @@ export class EmployeeComponent implements OnInit {
       let reimbursementString = JSON.stringify(response);
       this.pastReimbursements = JSON.parse(reimbursementString);
 
-    }
-    );
-  }
-
-  logout() {
-    this.ls.logout();
-    sessionStorage.removeItem('currentUser');
-    this.router.navigate(['/login']);
+    });
   }
 }
