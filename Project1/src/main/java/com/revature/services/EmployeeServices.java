@@ -13,8 +13,8 @@ public class EmployeeServices {
 
 	static EmployeeDAO repository = new EmployeeDAOImpl();
 
-	public static boolean submitRequest(ReimbursementTemplate rt) {
-		return repository.submitRequest(rt);
+	public static boolean createRequest(ReimbursementTemplate rt) {
+		return repository.createRequest(rt);
 	}
 
 	public static List<Reinbursement> viewPastRequests(int userId) {

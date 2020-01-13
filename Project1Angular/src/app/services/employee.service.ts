@@ -19,15 +19,16 @@ export class EmployeeService {
     return this.http.post<Reimbursement>('http://localhost:8080/Project1/viewPastRequests', body);
   }
 
-  submitReimbursement(userId:number, amount:number, description:string, type:number): Observable<Reimbursement> {
+  createReimbursement(userId:number, amount:number, description:string, type:number, receiptDataUrl:string | ArrayBuffer): Observable<Reimbursement> {
     let body: any = {
       userId : userId,
       amount: amount,
       description: description,
       type: type,
+      receiptDataUrl:receiptDataUrl,
     }
 
-    return this.http.post<Reimbursement>('http://localhost:8080/Project1/submitReimbursement', body);
+    return this.http.post<Reimbursement>('http://localhost:8080/Project1/createReimbursement', body);
   }
 
 }

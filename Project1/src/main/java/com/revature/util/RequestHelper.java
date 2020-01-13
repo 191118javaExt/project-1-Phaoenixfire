@@ -17,6 +17,7 @@ import com.revature.models.Employee;
 import com.revature.models.EmployeeDTO;
 import com.revature.models.IdTemplate;
 import com.revature.models.LoginTemplate;
+import com.revature.models.ReimbursementTemplate;
 import com.revature.models.Reinbursement;
 import com.revature.services.EmployeeServices;
 
@@ -121,5 +122,21 @@ public class RequestHelper {
 			line = reader.readLine();
 		}
 		String body = s.toString();
+	}
+
+	public static void createReimbursement(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		res.setContentType("application/json");
+		BufferedReader reader = req.getReader();
+
+		StringBuilder s = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			s.append(line);
+			line = reader.readLine();
+		}
+		String body = s.toString();
+		ReimbursementTemplate rt = om.readValue(body, ReimbursementTemplate.class);
+		EmployeeServices.createRequest(rt);
+		
 	}
 }

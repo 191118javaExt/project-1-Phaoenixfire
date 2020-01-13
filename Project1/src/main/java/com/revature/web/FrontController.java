@@ -40,6 +40,10 @@ public class FrontController extends HttpServlet {
 			RequestHelper.manageRequests(req,res);
 			break;
 
+		case "createReimbursement":
+			RequestHelper.createReimbursement(req,res);
+			break;
+			
 		}
 		
 

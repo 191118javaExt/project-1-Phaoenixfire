@@ -1,6 +1,5 @@
 package com.revature.repositories;
 
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -22,22 +22,22 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class);
 
-	public boolean submitRequest(ReimbursementTemplate rt) {
+	public boolean createRequest(ReimbursementTemplate rt) {
 		Reinbursement reimb = new Reinbursement(rt.getAmount(), Timestamp.valueOf(LocalDateTime.now()), null,
 				rt.getDescription(), rt.getUserId(), 1, rt.getType());
-
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "INSERT INTO reinburs (reimb_amount, reimb_submitted, reimb_description, reimb_author,reimb_status_id, reimb_type_id) "
-					+ "VALUES (?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_description, reimb_author,reimb_status_id, reimb_type_id, reimb_receipt) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setDouble(1, reimb.getReimb_amount());
 			stmt.setTimestamp(2, reimb.getReimb_submitted());
 			stmt.setString(3, reimb.getReimb_description());
-			stmt.setInt(4, reimb.getReimb_author());
+			stmt.setInt(4, rt.getUserId());
 			stmt.setInt(5, reimb.getReimb_status_id());
-			stmt.setInt(6, reimb.getReimb_type_id());
+			stmt.setInt(6, rt.getType());
+			stmt.setBytes(7, Base64.getEncoder().encode(rt.getReceiptDataUrl().getBytes()));
 
 			stmt.execute();
 
@@ -52,7 +52,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		List<Reinbursement> re = new ArrayList<Reinbursement>();
 		Timestamp reimb_submitted;
 		Timestamp reimb_resolved;
-		Blob reimb_receipt;
+		String reimb_receipt;
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
 			String sql = "Select * from ers_reimbursement where REIMB_AUTHOR = ?;";
@@ -73,8 +73,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 					reimb_resolved = null;
 				}
 				String reimb_description = rs.getString("reimb_description");
-				if (rs.getBlob("reimb_receipt") != null) {
-					reimb_receipt = rs.getBlob("reimb_receipt");
+				if (rs.getString("reimb_receipt") != null) {
+					reimb_receipt = new String(Base64.getDecoder().decode(rs.getBytes("reimb_receipt")));
 				} else {
 					reimb_receipt = null;
 				}
@@ -109,7 +109,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				Timestamp reimb_submitted = rs.getTimestamp("reimb_submitted");
 				Timestamp reimb_resolved = rs.getTimestamp("reimb_resolved");
 				String reimb_description = rs.getString("reimb_description");
-				Blob reimb_receipt = rs.getBlob("reimb_receipt");
+				String reimb_receipt = new String(Base64.getDecoder().decode(rs.getBytes("reimb_receipt")));
 				int reimb_author = rs.getInt("reimb_author");
 				int reimb_resolver = rs.getInt("reimb_resolver");
 				int reimb_status_id = rs.getInt("reimb_status_id");

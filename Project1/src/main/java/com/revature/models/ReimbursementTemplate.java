@@ -6,8 +6,29 @@ public class ReimbursementTemplate {
 	private double amount;
 	private String description;
 	private int type;
+	private String receiptDataUrl;
 	
 	
+	public String getReceiptDataUrl() {
+		return receiptDataUrl;
+	}
+
+
+	public void setReceiptDataUrl(String receiptDataUrl) {
+		this.receiptDataUrl = receiptDataUrl;
+	}
+
+
+	public ReimbursementTemplate(int userId, double amount, String description, int type, String receiptDataUrl) {
+		super();
+		this.userId = userId;
+		this.amount = amount;
+		this.description = description;
+		this.type = type;
+		this.receiptDataUrl = receiptDataUrl;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

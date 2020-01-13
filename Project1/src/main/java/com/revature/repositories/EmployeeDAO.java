@@ -9,7 +9,7 @@ import com.revature.models.Reinbursement;
 //This is the employeeDAO in project 1
 public interface EmployeeDAO {
 	
-		public boolean submitRequest(ReimbursementTemplate rt);
+		public boolean createRequest(ReimbursementTemplate rt);
 		public List<Reinbursement> viewPastRequests(int userId);
 		public List<Reinbursement> viewPendingRequests(int userId);
 		public List<Employee> findAllEmployees();

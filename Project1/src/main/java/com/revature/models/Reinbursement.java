@@ -1,8 +1,6 @@
 package com.revature.models;
 
-import java.sql.Blob;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class Reinbursement {
 	private int reimb_id;
@@ -10,7 +8,7 @@ public class Reinbursement {
 	private Timestamp reimb_submitted;
 	private Timestamp reimb_resolved;
 	private String reimb_description;
-	private Blob reimb_receipt;
+	private String reimb_receipt;
 	private int reimb_author;
 	private int reimb_resolver;
 	private int reimb_status_id;
@@ -47,10 +45,10 @@ public class Reinbursement {
 	public void setReimb_description(String reimb_description) {
 		this.reimb_description = reimb_description;
 	}
-	public Blob getReimb_receipt() {
+	public String getReimb_receipt() {
 		return reimb_receipt;
 	}
-	public void setReimb_receipt(Blob reimb_receipt) {
+	public void setReimb_receipt(String reimb_receipt) {
 		this.reimb_receipt = reimb_receipt;
 	}
 	public int getReimb_author() {
@@ -128,7 +126,7 @@ public class Reinbursement {
 				+ reimb_type_id + "]";
 	}
 	public Reinbursement(int reimb_id, double reimb_amount, Timestamp reimb_submitted, Timestamp reimb_resolved,
-			String reimb_description, Blob reimb_receipt, int reimb_author, int reimb_resolver, int reimb_status_id,
+			String reimb_description, String reimb_receipt, int reimb_author, int reimb_resolver, int reimb_status_id,
 			int reimb_type_id) {
 		super();
 		this.reimb_id = reimb_id;
@@ -143,7 +141,7 @@ public class Reinbursement {
 		this.reimb_type_id = reimb_type_id;
 	}
 	
-	public Reinbursement(double reimb_amount, Timestamp reimb_submitted, Blob reimb_receipt, String reimb_description, int reimb_author,
+	public Reinbursement(double reimb_amount, Timestamp reimb_submitted, String reimb_receipt, String reimb_description, int reimb_author,
 			int reimb_status_id, int reimb_type_id) {
 		super();
 		this.reimb_amount = reimb_amount;
