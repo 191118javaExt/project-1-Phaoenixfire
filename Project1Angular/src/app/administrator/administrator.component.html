@@ -1,35 +1,51 @@
-<div class="bg-lg-12 bg-warning text-center"> Welcome {{ currentEmployee.firstName }} {{currentEmployee.lastName }}</div>
-<div class="col-sm-3" id="backgroundImage"></div>
-    <div class="col-sm-3" id="backgroundImage"></div>
-    <div class="col-sm-6 bg-warning" style="margin: 0;">
-        <legend class="text-center">Reimbursement Requests</legend>
-        <table class="table table-bordered">
-            
-            <thead>
-                <tr>
-                    <th>Amount</th>
-                    <th>Date Submitted</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let s of pastReimbursements">
-                    <td>{{s.reimb_amount}}</td>
-                    <td>{{s.reimb_submitted}}</td>
-                    <td [ngSwitch]="s.type">
-                        <span *ngSwitchCase="1">Lodging</span>
-                        <span *ngSwitchCase="2">Travel</span>
-                        <span *ngSwitchCase="3">Food</span>
-                        <span *ngSwitchCase="4">Other</span>
-                        <span *ngSwitchDefault>Other</span>
-                    </td>
-                    <td [ngSwitch]="s.reimb_status_id">
-                        <span *ngSwitchCase="1">Pending</span>
-                        <span *ngSwitchCase="2">Approved</span>
-                        <span *ngSwitchCase="3">Denied</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="col-sm-12 bg-warning text-center"> Welcome {{ currentEmployee.firstName }} {{currentEmployee.lastName }}</div>
+<div class="row">
+    <form class="col-sm-3 bg-warning">
+        <p>Enter Reimbursement Id to approve or deny:</p>
+        <input [(ngModel)]="resolveId" name="resolveId" class="form-control">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span style="padding-right: 10px;">Select Reimbursment Type: </span>
+            </div>
+           <select [(ngModel)]="changeRequest" name="changeRequest" class="form=control" required>
+               <option value="1">Approve</option>
+               <option value="2">Deny</option>
+           </select>
+        </div>
+        <button (click)="resolveRequest()">Submit</button>
+    </form>
+<div class="col-sm-9 bg-warning" style="margin: 0; height: 100vh;">
+    <legend class="text-center">Previous Reimbursement Requests</legend>
+    <table class="table table-bordered">
+        
+        <thead>
+            <tr>
+                <th>Reimbursement Id</th>
+                <th>Amount</th>
+                <th>Date Submitted</th>
+                <th>Receipt</th>
+                <th>Type</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let s of allReimbursements">
+                <td>{{s.reimb_id}}</td>
+                <td>{{s.reimb_amount | currency: 'USD': 'symbol': '1.2-2' }}</td>
+                <td>{{s.reimb_submitted | date}}</td>
+                <td *ngIf="s.reimb_receipt != null"><button (click)="showReceipt($event)" value={{s.reimb_id}} name="showReceipt">Show Receipt</button></td>
+                <td *ngIf="s.reimb_receipt == null"></td>
+                <td [ngSwitch]="s.reimb_type_id">
+                    <span *ngSwitchCase="1">Lodging</span>
+                    <span *ngSwitchCase="2">Travel</span>
+                    <span *ngSwitchCase="3">Food</span>
+                    <span *ngSwitchCase="4">Other</span>
+                    <span *ngSwitchDefault>Other</span>
+                </td>
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
+</div>

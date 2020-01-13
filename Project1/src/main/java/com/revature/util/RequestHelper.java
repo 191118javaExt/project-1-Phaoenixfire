@@ -20,6 +20,7 @@ import com.revature.models.LoginTemplate;
 import com.revature.models.ReimbursementTemplate;
 import com.revature.models.Reinbursement;
 import com.revature.services.EmployeeServices;
+import com.revature.services.FMServices;
 
 public class RequestHelper {
 
@@ -122,6 +123,9 @@ public class RequestHelper {
 			line = reader.readLine();
 		}
 		String body = s.toString();
+		ReimbursementTemplate rt = om.readValue(body, ReimbursementTemplate.class);
+		FMServices fm = new FMServices();
+		fm.changeRequest(rt);
 	}
 
 	public static void createReimbursement(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -137,6 +141,29 @@ public class RequestHelper {
 		String body = s.toString();
 		ReimbursementTemplate rt = om.readValue(body, ReimbursementTemplate.class);
 		EmployeeServices.createRequest(rt);
+		
+	}
+
+	public static void viewAllPastRequests(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		res.setContentType("application/json");
+		BufferedReader reader = req.getReader();
+
+		StringBuilder s = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			s.append(line);
+			line = reader.readLine();
+		}
+		String body = s.toString();
+		FMServices fm = new FMServices();
+		
+		
+		List<Reinbursement> reimb = fm.viewAllPastRequests();
+
+		String json = om.writeValueAsString(reimb);
+
+		PrintWriter out = res.getWriter();
+		out.println(json);
 		
 	}
 }

@@ -43,6 +43,10 @@ public class FrontController extends HttpServlet {
 		case "createReimbursement":
 			RequestHelper.createReimbursement(req,res);
 			break;
+		
+		case "viewAllPastRequests":
+			RequestHelper.viewAllPastRequests(req,res);
+			break;
 			
 		}
 		

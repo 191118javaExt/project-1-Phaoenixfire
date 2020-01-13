@@ -7,8 +7,39 @@ public class ReimbursementTemplate {
 	private String description;
 	private int type;
 	private String receiptDataUrl;
+	private int resolved;
+	private int reimbId;
 	
 	
+	
+	public int getResolved() {
+		return resolved;
+	}
+
+
+	public void setResolved(int resolved) {
+		this.resolved = resolved;
+	}
+
+
+	public int getReimbId() {
+		return reimbId;
+	}
+
+
+	public void setReimbId(int reimbId) {
+		this.reimbId = reimbId;
+	}
+
+
+	public ReimbursementTemplate(int userId, int resolved, int reimbId) {
+		super();
+		this.userId = userId;
+		this.resolved = resolved;
+		this.reimbId = reimbId;
+	}
+
+
 	public String getReceiptDataUrl() {
 		return receiptDataUrl;
 	}

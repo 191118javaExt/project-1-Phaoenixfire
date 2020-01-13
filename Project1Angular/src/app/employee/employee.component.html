@@ -1,4 +1,4 @@
-<div class="bg-lg-12 bg-warning text-center"> Welcome {{ currentEmployee.firstName }} {{currentEmployee.lastName }}</div>
+<div class="bg-lg-12 bg-warning text-center"> Welcome {{ currentEmployee.firstName + " " + currentEmployee.lastName | titlecase}}</div>
 <div class=row>
     <div class="col-sm-4 bg-warning" style="margin: 0; height:100vh">
         <form id="reimburseForm" (ngSubmit)="submitForm()" #contactForm="ngForm">

@@ -8,7 +8,7 @@ export class Reimbursement{
     public reimb_receipt: string;
     private reimb_author: number;
     private reimb_resolver: number;
-    private reimb_status_id: number;
+    public reimb_status_id: number;
     private reimb_type_id: number;
 
 }

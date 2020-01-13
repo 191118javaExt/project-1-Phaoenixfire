@@ -1,16 +1,18 @@
 package com.revature.repositories;
 
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.revature.models.ReimbursementTemplate;
 import com.revature.models.Reinbursement;
 import com.revature.util.ConnectionUtil;
 
@@ -27,7 +29,7 @@ public class FMDAOImpl implements FMDAO{
 		List<Reinbursement> re = new ArrayList<Reinbursement>();
 		Timestamp reimb_submitted;
 		Timestamp reimb_resolved;
-		Blob reimb_receipt;
+		String reimb_receipt;
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
 			String sql = "Select * from ers_reimbursement;";
@@ -45,8 +47,8 @@ public class FMDAOImpl implements FMDAO{
 				else { reimb_resolved = null;
 				}
 				String reimb_description = rs.getString("reimb_description");
-				if(rs.getBlob("reimb_receipt") != null) {
-					reimb_receipt = rs.getBlob("reimb_receipt");
+				if(rs.getString("reimb_receipt") != null) {
+					reimb_receipt = new String(Base64.getDecoder().decode(rs.getBytes("reimb_receipt")));
 				} else {
 					reimb_receipt = null;
 				}
@@ -67,15 +69,18 @@ public class FMDAOImpl implements FMDAO{
 		return re;
 	}
 
-	public boolean changeRequest(int reimb_id, int requestChange) {
+	public boolean changeRequest(ReimbursementTemplate rt) {
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "UPDATE ers_reimbursement set reimb_status_id = ? where reimb_id = ?";
+			String sql = "UPDATE ers_reimbursement set reimb_status_id = ?,reimb_resolved = ?, reimb_resolver = ? where reimb_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, requestChange);
-			stmt.setInt(2, reimb_id);
+			stmt.setInt(1, rt.getResolved());
+			stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+			stmt.setInt(3, rt.getUserId());
+			stmt.setInt(4, rt.getReimbId());
 
+			stmt.execute();
 			return true;
 			
 		} catch (SQLException e) {

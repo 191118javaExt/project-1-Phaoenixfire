@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FileLoadService } from './file-load.service';
+import { AdminService } from './admin.service';
 
-describe('FileLoadService', () => {
+describe('AdminService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FileLoadService = TestBed.get(FileLoadService);
+    const service: AdminService = TestBed.get(AdminService);
     expect(service).toBeTruthy();
   });
 });
